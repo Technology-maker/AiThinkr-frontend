@@ -7,9 +7,8 @@ import { IoIosGlobe } from "react-icons/io";
 import { FaPaperclip, FaArrowAltCircleUp } from "react-icons/fa";
 import axios from 'axios';
 
-const Prompt = () => {
+const Prompt = ({ prompt, setPrompt }) => {
   const [inputValue, setInputValue] = useState("");
-  const [prompt, setPrompt] = useState([]);
   const [loading, setLoading] = useState(false);
   const promptEndRef = useRef();
 
@@ -64,7 +63,7 @@ const Prompt = () => {
         ...prev,
         { role: "assistant", content: data.reply }
       ]);
-    } catch (error) {
+    } catch (Error) {
       setPrompt((prev) => [
         ...prev,
         { role: "assistant", content: "Something went wrong with AI response." }
@@ -111,7 +110,7 @@ const Prompt = () => {
               <ReactMarkdown
                 children={msg.content}
                 components={{
-                  code({ node, inline, className, children, ...props }) {
+                  code({ inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || "");
                     return !inline && match ? (
                       <SyntaxHighlighter
