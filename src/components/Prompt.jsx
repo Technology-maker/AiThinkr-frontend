@@ -86,7 +86,7 @@ const Prompt = ({ prompt, setPrompt }) => {
               Hi, I'm <span className="text-blue-500">AiThinkr</span><span className="text-white">.</span>
             </h1>
           </div>
-          <p className="text-gray-400 text-base sm:text-lg">💭 How can I help you today?</p>
+          <p className="text-gray-400 text-base sm:text-base">💭 How can I help you today?</p>
           <p className="text-gray-400 text-base sm:text-sm"> 🚀Made by Satender yadav </p>
         </div>
 
