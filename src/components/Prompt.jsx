@@ -50,7 +50,7 @@ const Prompt = () => {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.post(
-        "http://localhost:3000/api/v1/deepseekai/prompt",
+        "https://ai-thinkr.vercel.app/api/v1/deepseekai/prompt",
         { content: trimmed },
         {
           headers: {

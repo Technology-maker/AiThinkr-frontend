@@ -30,7 +30,7 @@ const Sidebar = ({ setPrompt }) => {
 
   const handleLogout = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/api/v1/user/logout", {
+      const { data } = await axios.get("https://ai-thinkr.vercel.app/api/v1/user/logout", {
         withCredentials: true
       });
       localStorage.removeItem("user");

@@ -31,7 +31,7 @@ const Signup = () => {
     seterror("");
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
+        "https://ai-thinkr.vercel.app/api/v1/user/signup",
         {
           firstname: formdata.firstname,
           lastname: formdata.lastname,
