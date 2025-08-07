@@ -104,13 +104,17 @@ const Prompt = ({ prompt, setPrompt }) => {
             >
               <div
                 className={`max-w-[90%] sm:max-w-[70%] px-4 py-2 rounded-xl text-sm whitespace-pre-wrap
-              ${msg.role === "user"
+        ${msg.role === "user"
                     ? "bg-blue-700 text-white rounded-br-none"
                     : "bg-gray-700 text-white rounded-bl-none"
                   }`}
               >
                 <ReactMarkdown
-                  children={msg.content}
+                  children={
+                    msg.content === "Something went wrong with AI response."
+                      ? "Ai limit reached please use next day"
+                      : msg.content
+                  }
                   components={{
                     code({ inline, className, children, ...props }) {
                       const match = /language-(\w+)/.exec(className || "");
