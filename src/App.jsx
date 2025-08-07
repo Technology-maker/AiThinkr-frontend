@@ -1,9 +1,10 @@
-import React from 'react'
-import { Navigate, Route, Routes } from "react-router"
-import Home from './components/home';
-import Login from './components/Login.jsx';
+import React from 'react';
+import { Navigate, Route, Routes } from "react-router-dom";
+import Home from './components/Home';
+import Login from './components/Login';
 import Signup from './components/Signup';
-import { useAuth } from './context/AuthProvider.jsx';
+import { useAuth } from './context/AuthProvider';
+
 
 const App = () => {
 
