@@ -144,7 +144,7 @@ const Prompt = ({ prompt, setPrompt }) => {
       </div>
 
       {/* Input Box */}
-      <div className="w-full max-w-2xl bg-[#18181b] rounded-3xl p-2 sm:p-3 border border-gray-800 text-white">
+      <div className="w-full max-w-2xl bg-[#18181b] rounded-3xl p-2 sm:p-3 border border-gray-800 text-white mt-3 pt-3">
         <div className="flex flex-col gap-4 w-full">
           {/* Input Field */}
           <input
