@@ -159,18 +159,6 @@ const Prompt = ({ prompt, setPrompt }) => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-between w-full items-center gap-4">
-            <div className="flex flex-wrap gap-2 justify-center sm:justify-start w-full sm:w-auto">
-              
-              <button
-                className="flex items-center gap-2 bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-2xl font-medium transition text-sm"
-                disabled={loading || !inputValue.trim()}
-                onClick={handlerSend}
-              >
-                <IoIosGlobe />
-                Search
-              </button>
-            </div>
-
             <div className="flex gap-2">
               <button className="p-3 bg-gray-800 hover:bg-gray-700 rounded-full text-xl transition" disabled>
                 <FaPaperclip />
