@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaEye } from 'react-icons/fa6';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -16,6 +16,7 @@ const Signup = () => {
 
 
   const [error, seterror] = useState();
+   const [showPassword, setShowPassword] = useState(false);
 
   const handlechange = (e) => {
     const value = e.target.value
@@ -68,6 +69,7 @@ const Signup = () => {
             className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             value={formdata.firstname}
             onChange={handlechange}
+            required
           />
         </div>
 
@@ -80,6 +82,7 @@ const Signup = () => {
             className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             value={formdata.lastname}
             onChange={handlechange}
+            required
           />
         </div>
 
@@ -92,21 +95,23 @@ const Signup = () => {
             className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             value={formdata.email}
             onChange={handlechange}
+            required
           />
         </div>
 
         {/* Password */}
         <div className="mb-4 relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Password"
             className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             value={formdata.password}
             onChange={handlechange}
+            required
           />
-          <span className='absolute right-3 top-3 text-gray-400'>
-            <FaEye size={18} />
+          <span className='absolute right-3 top-3 text-gray-400' onClick={() => setShowPassword((prev) => !prev)}>
+            {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
           </span>
         </div>
 
