@@ -163,7 +163,8 @@ const Prompt = ({ prompt, setPrompt }) => {
               
               <button
                 className="flex items-center gap-2 bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-2xl font-medium transition text-sm"
-                disabled
+                disabled={loading || !inputValue.trim()}
+                onClick={handlerSend}
               >
                 <IoIosGlobe />
                 Search
