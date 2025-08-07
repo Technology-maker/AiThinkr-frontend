@@ -87,7 +87,7 @@ const Prompt = ({ prompt, setPrompt }) => {
             </h1>
           </div>
           <p className="text-gray-400 text-base sm:text-lg">💭 How can I help you today?</p>
-          <p className="text-gray-400 text-base sm:text-sm">Made by Satender yadav 🚀</p>
+          <p className="text-gray-400 text-base sm:text-sm"> 🚀Made by Satender yadav </p>
         </div>
 
         {/* Message Display */}
