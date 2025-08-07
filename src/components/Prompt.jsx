@@ -160,9 +160,7 @@ const Prompt = ({ prompt, setPrompt }) => {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-between w-full items-center gap-4">
             <div className="flex gap-2">
-              <button className="p-3 bg-gray-800 hover:bg-gray-700 rounded-full text-xl transition" disabled>
-                <FaPaperclip />
-              </button>
+              
               <button
                 onClick={handlerSend}
                 className="p-3 bg-blue-600 hover:bg-blue-700 rounded-full text-xl transition"
