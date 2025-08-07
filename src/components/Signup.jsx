@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { FaEye } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Toaster from './Toaster';
 
 const Signup = () => {
   const [loading, setloding] = useState(false);
@@ -17,8 +16,6 @@ const Signup = () => {
 
 
   const [error, seterror] = useState();
-
-  const [toast, setToast] = useState({ show: false, message: "", type: "success" });
 
   const handlechange = (e) => {
     const value = e.target.value
@@ -43,12 +40,11 @@ const Signup = () => {
         },
         { withCredentials: true }
       );
-      setToast({ show: true, message: data.message || "Signup successfully", type: "success" });
+      alert(data.message || "Signup successfully")
       navigate("/login");
-      setTimeout(() => navigate("/login"), 2000);
     }
     catch (error) {
-      const mess = "Signup Failed";
+      const mess = error?.response?.data?.error || "Signup Failed";
       seterror(mess);
       console.log(error);
     }
@@ -59,13 +55,6 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
-
-      <Toaster
-        show={toast.show}
-        message={toast.message}
-        type={toast.type}
-        onClose={() => setToast({ ...toast, show: false })}
-      />
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>

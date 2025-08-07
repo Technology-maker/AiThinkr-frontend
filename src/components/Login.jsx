@@ -3,7 +3,6 @@ import { FaEye } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useAuth } from '../context/AuthProvider.jsx';
-import Toaster from './Toaster';
 
 const Login = () => {
   const [loading, setloding] = useState(false);
@@ -17,9 +16,6 @@ const Login = () => {
   });
 
   const [error, seterror] = useState();
-
-  // Toaster state
-  const [toast, setToast] = useState({ show: false, message: "", type: "success" });
 
   const handlechange = (e) => {
     const value = e.target.value
@@ -42,16 +38,15 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      setToast({ show: true, message: data.message || "Login successfully", type: "success" });
+      alert(data.message || "Login successfully")
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
       setAuthUser(data.token)
-      setTimeout(() => navigate("/"), 2000);;
+      navigate("/");
     }
     catch (error) {
       const mess = error?.response?.data?.error || "Login Failed";
       seterror(mess);
-      setToast({ show: true, message: mess, type: "error" })
       console.log(error);
     }
     finally {
@@ -61,13 +56,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
-
-      <Toaster
-        show={toast.show}
-        message={toast.message}
-        type={toast.type}
-        onClose={() => setToast({ ...toast, show: false })}
-      />
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Login</h1>
