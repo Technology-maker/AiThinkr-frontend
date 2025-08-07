@@ -142,7 +142,7 @@ const Signup = () => {
           </p>
 
           {/* Signup Button */}
-          <button onClick={handleSignup} disabled={loading} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4">
+          <button type="submit" disabled={loading} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4">
             {loading ? "Signing..." : "Signup"}
           </button>
 
