@@ -11,6 +11,7 @@ const Prompt = ({ prompt, setPrompt }) => {
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const promptEndRef = useRef();
+  const fileInputRef = useRef();
 
 
   // saving date in localstorage user wise  18 to 30 lines
@@ -76,6 +77,20 @@ const Prompt = ({ prompt, setPrompt }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handlerSend();
+  };
+
+  const handlePaperclipClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Handle file upload logic here (e.g., send to server or show preview)
+      alert(`Selected file: ${file.name}`);
+    }
   };
 
   return (
@@ -160,8 +175,19 @@ const Prompt = ({ prompt, setPrompt }) => {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-between w-full items-center gap-4">
             <div className="flex gap-2">
-              <button className="p-3 bg-gray-800 hover:bg-gray-700 rounded-full text-xl transition" disabled>
+              <button
+                type="button"
+                className="p-3 bg-gray-800 hover:bg-gray-700 rounded-full text-xl transition"
+                onClick={handlePaperclipClick}
+                disabled={loading}
+              >
                 <FaPaperclip />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
               </button>
               <button
                 onClick={handlerSend}
