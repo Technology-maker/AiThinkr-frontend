@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-
 import { FaPaperclip, FaArrowAltCircleUp } from "react-icons/fa";
 import axios from 'axios';
 
@@ -90,82 +89,76 @@ const Prompt = ({ prompt, setPrompt }) => {
         <p className="text-gray-400 text-base sm:text-lg">💭 How can I help you today?</p>
       </div>
 
-      {/* Main chat area: flex-1 makes it grow, input stays at bottom */}
-      <div className="flex flex-col flex-1 w-full max-w-4xl">
-        {/* Message Display */}
-        <div className="flex-1 overflow-y-auto mb-4 max-h-[52vh] px-1 sm:px-4 space-y-3 sm:space-y-4">
-          {prompt.length === 0 && (
-            <div className="text-center text-gray-500">No messages yet. Start the conversation!</div>
-          )}
-          {prompt.map((msg, index) => (
+      {/* Message Display */}
+      <div className="w-full max-w-4xl flex-1 overflow-y-auto mb-4 max-h-[52vh] px-1 sm:px-4 space-y-3 sm:space-y-4">
+        {prompt.length === 0 && (
+          <div className="text-center text-gray-500">No messages yet. Start the conversation!</div>
+        )}
+        {prompt.map((msg, index) => (
+          <div
+            key={index}
+            className={`w-full flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+          >
             <div
-              key={index}
-              className={`w-full flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+              className={`max-w-[90%] sm:max-w-[70%] px-4 py-2 rounded-xl text-sm whitespace-pre-wrap
+                ${msg.role === "user"
+                  ? "bg-blue-700 text-white rounded-br-none"
+                  : "bg-gray-700 text-white rounded-bl-none"
+                }`}
             >
-              <div
-                className={`max-w-[90%] sm:max-w-[70%] px-4 py-2 rounded-xl text-sm whitespace-pre-wrap
-                  ${msg.role === "user"
-                    ? "bg-blue-700 text-white rounded-br-none"
-                    : "bg-gray-700 text-white rounded-bl-none"
-                  }`}
-              >
-                <ReactMarkdown
-                  children={msg.content}
-                  components={{
-                    code({ inline, className, children, ...props }) {
-                      const match = /language-(\w+)/.exec(className || "");
-                      return !inline && match ? (
-                        <SyntaxHighlighter
-                          children={String(children).replace(/\n$/, "")}
-                          style={oneDark}
-                          language={match[1]}
-                          PreTag="div"
-                          {...props}
-                        />
-                      ) : (
-                        <code className="bg-gray-800 px-1 py-0.5 rounded text-sm" {...props}>
-                          {children}
-                        </code>
-                      );
-                    }
-                  }}
-                />
-              </div>
+              <ReactMarkdown
+                children={msg.content}
+                components={{
+                  code({ inline, className, children, ...props }) {
+                    const match = /language-(\w+)/.exec(className || "");
+                    return !inline && match ? (
+                      <SyntaxHighlighter
+                        children={String(children).replace(/\n$/, "")}
+                        style={oneDark}
+                        language={match[1]}
+                        PreTag="div"
+                        {...props}
+                      />
+                    ) : (
+                      <code className="bg-gray-800 px-1 py-0.5 rounded text-sm" {...props}>
+                        {children}
+                      </code>
+                    );
+                  }
+                }}
+              />
             </div>
-          ))}
+          </div>
+        ))}
 
-          <div ref={promptEndRef}></div>
+        <div ref={promptEndRef}></div>
 
-          {loading && (
-            <div className='flex justify-start w-full'>
-              <div className='bg-[#18181b] text-white px-4 py-2 rounded-xl text-sm animate-pulse'>Loading...</div>
-            </div>
-          )}
-        </div>
+        {loading && (
+          <div className='flex justify-start w-full'>
+            <div className='bg-[#18181b] text-white px-4 py-2 rounded-xl text-sm animate-pulse'>Loading...</div>
+          </div>
+        )}
 
-        {/* Input Box at the bottom */}
-        <div className="w-full bg-[#18181b] rounded-3xl p-2 sm:p-3 border border-gray-800 text-white mt-3 pt-3">
-          <div className="flex flex-row gap-4 w-full">
-            {/* Input Field */}
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="💬 Message AiThinkr"
-              className="bg-[#18181b] w-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none border-none rounded-xl"
-              disabled={loading}
-            />
+      </div>
 
-            {/* Action Buttons */}
+      {/* Input Box */}
+      <div className="w-full max-w-2xl bg-[#18181b] rounded-3xl p-2 sm:p-3 border border-gray-800 text-white mt-3 pt-3">
+        <div className="flex flex-row gap-4 w-full">
+          {/* Input Field */}
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="💬 Message AiThinkr"
+            className="bg-[#18181b] w-full px-4 py-3 text-white placeholder-gray-400 focus:outline-none border-none rounded-xl"
+            disabled={loading}
+          />
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row justify-between w-full items-center gap-4">
             <div className="flex gap-2">
-              <button
-                className="p-3 bg-gray-800 hover:bg-gray-700 rounded-full text-xl transition"
-                disabled={loading}
-              // Add file upload logic here if needed
-              >
-                <FaPaperclip />
-              </button>
+              
               <button
                 onClick={handlerSend}
                 className="p-3 bg-blue-600 hover:bg-blue-700 rounded-full text-xl transition"
