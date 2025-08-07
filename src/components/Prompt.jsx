@@ -87,24 +87,12 @@ const Prompt = ({ prompt, setPrompt }) => {
             </h1>
           </div>
           <p className="text-gray-400 text-base sm:text-lg">💭 How can I help you today?</p>
+          <p className="text-gray-400 text-base sm:text-lg">Made by Satender yadav 🚀</p>
         </div>
 
         {/* Message Display */}
         <div
-          className="
-        w-full
-        flex-1
-        max-w-full
-        sm:max-w-3xl
-        md:max-w-4xl
-        overflow-y-auto
-        mb-3
-        px-1 sm:px-4
-        space-y-3 sm:space-y-4
-        max-h-[60vh]
-        min-h-[160px]
-        rounded-lg
-        "
+          className="w-full flex-1 max-w-full  sm:max-w-3xl md:max-w-4xl overflow-y-auto  mb-3 px-1 sm:px-4 space-y-3 sm:space-y-4 max-h-[60vh] min-h-[160px] rounded-lg "
         >
           {prompt.length === 0 && (
             <div className="text-center text-gray-500">No messages yet. Start the conversation!</div>
