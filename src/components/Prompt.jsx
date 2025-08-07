@@ -26,6 +26,7 @@ const Prompt = ({ prompt, setPrompt }) => {
   useEffect(() => {
     const User = JSON.parse(localStorage.getItem("user"));
     localStorage.setItem(`promptHistory_${User._id}`, JSON.stringify(prompt))
+    window.dispatchEvent(new Event("promptHistoryUpdated"));
   }, [prompt])
 
 

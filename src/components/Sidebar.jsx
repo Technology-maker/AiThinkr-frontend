@@ -28,6 +28,23 @@ const Sidebar = ({ setPrompt }) => {
     }
   }, []);
 
+  useEffect(() => {
+    const reloadPromptHistory = () => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        const storedPrompt = localStorage.getItem(`promptHistory_${parsedUser._id}`);
+        if (storedPrompt) {
+          setPromptHistory(JSON.parse(storedPrompt));
+        } else {
+          setPromptHistory([]);
+        }
+      }
+    };
+    window.addEventListener("promptHistoryUpdated", reloadPromptHistory);
+    return () => window.removeEventListener("promptHistoryUpdated", reloadPromptHistory);
+  }, []);
+
   const handleLogout = async () => {
     try {
       const { data } = await axios.get("https://ai-thinkr.vercel.app/api/v1/user/logout", {
@@ -48,10 +65,23 @@ const Sidebar = ({ setPrompt }) => {
       setPrompt([promptItem]); // or setPrompt(promptItem.fullHistory)
     }
   };
+  const reloadPromptHistory = () => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      const storedPrompt = localStorage.getItem(`promptHistory_${parsedUser._id}`);
+      if (storedPrompt) {
+        setPromptHistory(JSON.parse(storedPrompt));
+      } else {
+        setPromptHistory([]);
+      }
+    }
+  };
 
   const handleNewChat = () => {
     if (setPrompt) {
       setPrompt([]);
+      setTimeout(reloadPromptHistory, 100);
     }
   };
 
@@ -69,7 +99,7 @@ const Sidebar = ({ setPrompt }) => {
       <div className={`fixed top-0 left-0 z-40 h-full bg-gray-900 text-white shadow-lg transform transition-transform duration-300 w-64
         ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:static md:flex`}>
         <div className="flex flex-col h-full w-64">
-          
+
           {/* Header */}
           <div className="flex items-center justify-center px-6 py-4 border-b border-gray-800">
             <div className="text-xl font-bold tracking-wide text-center">AiThinkr</div>
@@ -78,7 +108,7 @@ const Sidebar = ({ setPrompt }) => {
           {/* History Section */}
           <div className="flex-1 px-6 py-4 overflow-y-auto">
             <button
-              onClick={handleNewChat} 
+              onClick={handleNewChat}
               className="w-full mb-4 py-2 px-3 bg-blue-600 hover:bg-blue-700 rounded text-white font-semibold transition"
             >
               + New Chat
