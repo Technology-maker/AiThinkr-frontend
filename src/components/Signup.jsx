@@ -16,7 +16,7 @@ const Signup = () => {
 
 
   const [error, seterror] = useState();
-   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handlechange = (e) => {
     const value = e.target.value
@@ -109,8 +109,13 @@ const Signup = () => {
             value={formdata.password}
             onChange={handlechange}
             required
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
+            title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
           />
-          <span className='absolute right-3 top-3 text-gray-400' onClick={() => setShowPassword((prev) => !prev)}>
+          <span
+            className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
             {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
           </span>
         </div>

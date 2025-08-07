@@ -84,14 +84,17 @@ const Login = () => {
             value={formdata.password}
             onChange={handlechange}
             required
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
+            title="Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character."
           />
           <span
-            className='absolute right-3 top-3 text-gray-400 cursor-pointer'
+            className="absolute right-3 top-3 text-gray-400 cursor-pointer"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
           </span>
         </div>
+
 
         {/* Error Message */}
         {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
