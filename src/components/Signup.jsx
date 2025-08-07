@@ -111,10 +111,14 @@ const Signup = () => {
             required
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
             title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
+            autoComplete="new-password"
           />
           <span
             className="absolute right-3 top-3 text-gray-400 cursor-pointer"
             onClick={() => setShowPassword((prev) => !prev)}
+            tabIndex={0}
+            role="button"
+            aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
           </span>
