@@ -78,7 +78,7 @@ const Sidebar = ({ setPrompt }) => {
           {/* History Section */}
           <div className="flex-1 px-6 py-4 overflow-y-auto">
             <button
-              onClick={handleNewChat}
+              onClick={handleNewChat} 
               className="w-full mb-4 py-2 px-3 bg-blue-600 hover:bg-blue-700 rounded text-white font-semibold transition"
             >
               + New Chat
