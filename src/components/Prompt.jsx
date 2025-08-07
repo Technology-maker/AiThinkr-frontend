@@ -160,13 +160,7 @@ const Prompt = ({ prompt, setPrompt }) => {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-between w-full items-center gap-4">
             <div className="flex flex-wrap gap-2 justify-center sm:justify-start w-full sm:w-auto">
-              <button
-                className="flex items-center gap-2 bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-2xl font-medium transition text-sm"
-                disabled
-              >
-                <FaRobot />
-                DeepThink (R1)
-              </button>
+              
               <button
                 className="flex items-center gap-2 bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-2xl font-medium transition text-sm"
                 disabled
