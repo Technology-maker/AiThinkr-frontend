@@ -83,18 +83,14 @@ const Login = () => {
             className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             value={formdata.password}
             onChange={handlechange}
-            required
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
-            title="Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character."
           />
           <span
-            className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+            className='absolute right-3 top-3 text-gray-400 cursor-pointer'
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
           </span>
         </div>
-
 
         {/* Error Message */}
         {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
@@ -113,7 +109,7 @@ const Login = () => {
 
         {/* Link to signup page */}
         <div className="flex justify-between text-gray-400 text-sm">
-          <span>Haven't account?</span>
+          <span>Don't have an account?</span>
           <Link to="/signup" className="text-blue-400 hover:underline">Signup</Link>
         </div>
       </div>
