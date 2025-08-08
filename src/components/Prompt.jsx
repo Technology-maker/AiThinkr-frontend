@@ -111,9 +111,11 @@ const Prompt = ({ prompt, setPrompt }) => {
               >
                 <ReactMarkdown
                   children={
+
                     msg.content === "Something went wrong with AI response."
-                      ? "Ai limit reached please use next day"
+                      ? "Ai limit reached please try again and use next day"
                       : msg.content
+
                   }
                   components={{
                     code({ inline, className, children, ...props }) {
@@ -146,14 +148,7 @@ const Prompt = ({ prompt, setPrompt }) => {
         </div>
 
         {/* Input Box */}
-        <div className="
-      w-full max-w-full sm:max-w-2xl
-      mt-auto pt-3
-      bg-[#18181b] rounded-2xl sm:rounded-3xl p-2 sm:p-3
-      border border-gray-800
-      shadow-lg
-      "
-        >
+        <div className=" w-full max-w-full sm:max-w-2xl mt-auto pt-3  bg-[#18181b] rounded-2xl sm:rounded-3xl p-2 sm:p-3 border border-gray-800 shadow-lg " >
           <form onSubmit={e => { e.preventDefault(); handlerSend(); }}>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full">
               {/* Input Field */}
