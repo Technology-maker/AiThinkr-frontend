@@ -4,29 +4,34 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [loading, setloding] = useState(false);
+  const navigate = useNavigate()
 
-  const [formdata, setFormdata] = useState({
+  const [formdata, setformdate] = useState({
     firstname: "",
     lastname: "",
     email: "",
     password: "",
   });
 
-  const [error, setError] = useState("");
+
+  const [error, seterror] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormdata((prev) => ({ ...prev, [name]: value }));
-  };
+  const handlechange = (e) => {
+    const value = e.target.value
+    const name = e.target.name
+    setformdate({
+      ...formdata,
+      [name]: value,
+    })
+  }
 
   const handleSignup = async () => {
-    setLoading(true);
-    setError("");
+    setloding(true)
+    seterror("");
     try {
-      const res = await axios.post(
+      const { data } = await axios.post(
         "https://ai-thinkr.vercel.app/api/v1/user/signup",
         {
           firstname: formdata.firstname,
@@ -36,20 +41,24 @@ const Signup = () => {
         },
         { withCredentials: true }
       );
-      alert(res.data.message || "User signup successfully");
+      alert(data.message || "Signup successfully")
       navigate("/login");
-    } catch (err) {
-      const message = err.response?.data?.error || "Signup failed";
-      setError(message); // This will show "Email already exists" if backend sends it
-      console.error(err);
-    } finally {
-      setLoading(false);
     }
-  };
+    catch (error) {
+      const mess = error?.response?.data?.error || "Signup Failed";
+      seterror(mess);
+      console.log(error);
+    }
+    finally {
+      setloding(false);
+    }
+  }
 
-  return (
+  return (<>
+
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
+        {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
         <form
           onSubmit={(e) => {
@@ -59,6 +68,7 @@ const Signup = () => {
         >
           {/* First Name */}
           <div className="mb-4">
+            <label htmlFor="firstname" className="sr-only">First Name</label>
             <input
               id="firstname"
               type="text"
@@ -66,13 +76,14 @@ const Signup = () => {
               placeholder="First Name"
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
               value={formdata.firstname}
-              onChange={handleChange}
+              onChange={handlechange}
               required
             />
           </div>
 
           {/* Last Name */}
           <div className="mb-4">
+            <label htmlFor="lastname" className="sr-only">Last Name</label>
             <input
               id="lastname"
               type="text"
@@ -80,13 +91,14 @@ const Signup = () => {
               placeholder="Last Name"
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
               value={formdata.lastname}
-              onChange={handleChange}
+              onChange={handlechange}
               required
             />
           </div>
 
           {/* Email */}
           <div className="mb-4">
+            <label htmlFor="email" className="sr-only">Email</label>
             <input
               id="email"
               type="email"
@@ -94,7 +106,7 @@ const Signup = () => {
               placeholder="Email"
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
               value={formdata.email}
-              onChange={handleChange}
+              onChange={handlechange}
               required
               inputMode="email"
               autoCapitalize="off"
@@ -104,6 +116,7 @@ const Signup = () => {
 
           {/* Password */}
           <div className="mb-4 relative">
+            <label htmlFor="password" className="sr-only">Password</label>
             <input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -111,14 +124,25 @@ const Signup = () => {
               placeholder="Password"
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
               value={formdata.password}
-              onChange={handleChange}
+              onChange={handlechange}
               required
+              // Fix the lookaheads in your original pattern
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
-              title="Password must be at least 8 characters long and include uppercase, lowercase, number, and special character."
+              title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
+              aria-invalid={Boolean(error)}
             />
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword(prev => !prev)}
+              tabIndex={0}
+              role="button"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setShowPassword(prev => !prev);
+                }
+              }}
             >
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </span>
@@ -126,6 +150,13 @@ const Signup = () => {
 
           {/* Error Message */}
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
+
+          {/* Terms and Conditions */}
+          <p className="text-gray-400 text-xs mb-6 text-center">
+            By signing up or logging in, you agree to Deepseek&apos;s{' '}
+            <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
+            <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
+          </p>
 
           {/* Signup Button */}
           <button
@@ -136,14 +167,18 @@ const Signup = () => {
             {loading ? "Signing..." : "Signup"}
           </button>
 
+          {/* Link to login page */}
           <div className="flex justify-between text-gray-400 text-sm">
             <span>Already registered?</span>
             <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
           </div>
         </form>
+
+
       </div>
     </div>
-  );
+  </>
+  )
 }
 
 export default Signup;
