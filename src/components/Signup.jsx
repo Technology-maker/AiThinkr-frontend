@@ -116,20 +116,30 @@ const Signup = () => {
               value={formdata.password}
               onChange={handlechange}
               required
+              // At least 8 chars, 1 lowercase, 1 uppercase, 1 number, 1 special
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
               title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
               autoComplete="new-password"
+              aria-invalid={false}
             />
+
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={() => setShowPassword(prev => !prev)}
               tabIndex={0}
               role="button"
               aria-label={showPassword ? "Hide password" : "Show password"}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setShowPassword(prev => !prev);
+                }
+              }}
             >
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </span>
           </div>
+
 
           {/* Error Message */}
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
