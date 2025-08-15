@@ -78,7 +78,6 @@ const Signup = () => {
               value={formdata.firstname}
               onChange={handlechange}
               required
-              autoComplete="given-name"
             />
           </div>
 
@@ -94,7 +93,6 @@ const Signup = () => {
               value={formdata.lastname}
               onChange={handlechange}
               required
-              autoComplete="family-name"
             />
           </div>
 
@@ -110,7 +108,6 @@ const Signup = () => {
               value={formdata.email}
               onChange={handlechange}
               required
-              autoComplete="username"
               inputMode="email"
               autoCapitalize="off"
               autoCorrect="off"
@@ -129,13 +126,11 @@ const Signup = () => {
               value={formdata.password}
               onChange={handlechange}
               required
-              // At least 8 chars, 1 lowercase, 1 uppercase, 1 number, 1 special
+              // Fix the lookaheads in your original pattern
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
               title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-              autoComplete="new-password"
               aria-invalid={Boolean(error)}
             />
-
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword(prev => !prev)}
@@ -178,6 +173,7 @@ const Signup = () => {
             <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
           </div>
         </form>
+
 
       </div>
     </div>
