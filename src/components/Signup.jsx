@@ -66,10 +66,11 @@ const Signup = () => {
             handleSignup();
           }}
         >
-
           {/* First Name */}
           <div className="mb-4">
+            <label htmlFor="firstname" className="sr-only">First Name</label>
             <input
+              id="firstname"
               type="text"
               name="firstname"
               placeholder="First Name"
@@ -77,12 +78,15 @@ const Signup = () => {
               value={formdata.firstname}
               onChange={handlechange}
               required
+              autoComplete="given-name"
             />
           </div>
 
           {/* Last Name */}
           <div className="mb-4">
+            <label htmlFor="lastname" className="sr-only">Last Name</label>
             <input
+              id="lastname"
               type="text"
               name="lastname"
               placeholder="Last Name"
@@ -90,12 +94,15 @@ const Signup = () => {
               value={formdata.lastname}
               onChange={handlechange}
               required
+              autoComplete="family-name"
             />
           </div>
 
           {/* Email */}
           <div className="mb-4">
+            <label htmlFor="email" className="sr-only">Email</label>
             <input
+              id="email"
               type="email"
               name="email"
               placeholder="Email"
@@ -103,12 +110,18 @@ const Signup = () => {
               value={formdata.email}
               onChange={handlechange}
               required
+              autoComplete="username"
+              inputMode="email"
+              autoCapitalize="off"
+              autoCorrect="off"
             />
           </div>
 
           {/* Password */}
           <div className="mb-4 relative">
+            <label htmlFor="password" className="sr-only">Password</label>
             <input
+              id="password"
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
@@ -120,7 +133,7 @@ const Signup = () => {
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
               title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
               autoComplete="new-password"
-              aria-invalid={false}
+              aria-invalid={Boolean(error)}
             />
 
             <span
@@ -140,19 +153,22 @@ const Signup = () => {
             </span>
           </div>
 
-
           {/* Error Message */}
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
 
           {/* Terms and Conditions */}
           <p className="text-gray-400 text-xs mb-6 text-center">
-            By signing up or logging in, you agree to Deepseek's{' '}
+            By signing up or logging in, you agree to Deepseek&apos;s{' '}
             <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
             <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
           </p>
 
           {/* Signup Button */}
-          <button type="submit" disabled={loading} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4"
+          >
             {loading ? "Signing..." : "Signup"}
           </button>
 
@@ -162,6 +178,7 @@ const Signup = () => {
             <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
           </div>
         </form>
+
       </div>
     </div>
   </>
