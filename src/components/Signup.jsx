@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+
 const Signup = () => {
   const [loading, setloding] = useState(false);
   const navigate = useNavigate()
@@ -34,13 +35,17 @@ const Signup = () => {
       const { data } = await axios.post(
         "https://ai-thinkr.vercel.app/api/v1/user/signup",
         {
-          firstname: formdata.firstname,
-          lastname: formdata.lastname,
+          firstname: formdata.firstname,  // ✅ Match backend
+          lastname: formdata.lastname,    // ✅ Match backend
           email: formdata.email,
-          password: formdata.password
+          password: formdata.password,
         },
-        { withCredentials: true }
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
       );
+
       alert(data.message || "Signup successfully")
       navigate("/login");
     }
