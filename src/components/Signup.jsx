@@ -120,38 +120,39 @@ const Signup = () => {
           </div>
 
           {/* Password */}
-          <div className="mb-4 relative">
-            <label htmlFor="password" className="sr-only">Password</label>
-            <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-              value={formdata.password}
-              onChange={handlechange}
-              required
-              // Fix the lookaheads in your original pattern
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
-              title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-              aria-invalid={Boolean(error)}
-            />
-            <span
-              className="absolute right-3 top-3 text-gray-400 cursor-pointer"
-              onClick={() => setShowPassword(prev => !prev)}
-              tabIndex={0}
-              role="button"
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  setShowPassword(prev => !prev);
-                }
-              }}
-            >
-              {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
-            </span>
-          </div>
+<div className="mb-4 relative">
+  <label htmlFor="password" className="sr-only">Password</label>
+  <input
+    id="password"
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Password"
+    className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+    value={formdata.password}
+    onChange={handlechange}
+    required
+    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
+    title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
+    aria-invalid={Boolean(error)}
+    autoComplete="new-password"
+  />
+  <span
+    className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+    onClick={() => setShowPassword(prev => !prev)}
+    tabIndex={0}
+    role="button"
+    aria-label={showPassword ? "Hide password" : "Show password"}
+    onKeyDown={(e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setShowPassword(prev => !prev);
+      }
+    }}
+  >
+    {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+  </span>
+</div>
+
 
           {/* Error Message */}
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
