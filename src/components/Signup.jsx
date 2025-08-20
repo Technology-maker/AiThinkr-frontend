@@ -66,121 +66,121 @@ const Signup = () => {
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
         <form
-  onSubmit={(e) => {
-    e.preventDefault();
-    handleSignup();
-  }}
->
-  {/* First Name */}
-  <div className="mb-4">
-    <label htmlFor="firstname" className="sr-only">First Name</label>
-    <input
-      id="firstname"
-      type="text"
-      name="firstname"
-      placeholder="First Name"
-      className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-      value={formdata.firstname}
-      onChange={handlechange}
-      required
-      autoComplete="given-name"   // 👈 tells browser this is first name
-    />
-  </div>
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSignup();
+          }}
+        >
+          {/* First Name */}
+          <div className="mb-4">
+            <label htmlFor="firstname" className="sr-only">First Name</label>
+            <input
+              id="firstname"
+              type="text"
+              name="firstname"
+              placeholder="First Name"
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.firstname}
+              onChange={handlechange}
+              required
+              autoComplete="given-name"   // 👈 tells browser this is first name
+            />
+          </div>
 
-  {/* Last Name */}
-  <div className="mb-4">
-    <label htmlFor="lastname" className="sr-only">Last Name</label>
-    <input
-      id="lastname"
-      type="text"
-      name="lastname"
-      placeholder="Last Name"
-      className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-      value={formdata.lastname}
-      onChange={handlechange}
-      required
-      autoComplete="family-name"  // 👈 tells browser this is last name
-    />
-  </div>
+          {/* Last Name */}
+          <div className="mb-4">
+            <label htmlFor="lastname" className="sr-only">Last Name</label>
+            <input
+              id="lastname"
+              type="text"
+              name="lastname"
+              placeholder="Last Name"
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.lastname}
+              onChange={handlechange}
+              required
+              autoComplete="family-name"  // 👈 tells browser this is last name
+            />
+          </div>
 
-  {/* Email */}
-  <div className="mb-4">
-    <label htmlFor="email" className="sr-only">Email</label>
-    <input
-      id="email"
-      type="email"
-      name="email"
-      placeholder="Email"
-      className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-      value={formdata.email}
-      onChange={handlechange}
-      required
-      inputMode="email"
-      autoCapitalize="off"
-      autoCorrect="off"
-      autoComplete="email"        // 👈 tells browser this is email
-    />
-  </div>
+          {/* Email */}
+          <div className="mb-4">
+            <label htmlFor="email" className="sr-only">Email</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.email}
+              onChange={handlechange}
+              required
+              inputMode="email"
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoComplete="email"        // 👈 tells browser this is email
+            />
+          </div>
 
-  {/* Password */}
-  <div className="mb-4 relative">
-    <label htmlFor="password" className="sr-only">Password</label>
-    <input
-      id="password"
-      type={showPassword ? "text" : "password"}
-      name="password"
-      placeholder="Password"
-      className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-      value={formdata.password}
-      onChange={handlechange}
-      required
-      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
-      title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-      aria-invalid={Boolean(error)}
-      autoComplete="new-password" // 👈 tells browser this is new password
-    />
-    <span
-      className="absolute right-3 top-3 text-gray-400 cursor-pointer"
-      onClick={() => setShowPassword(prev => !prev)}
-      tabIndex={0}
-      role="button"
-      aria-label={showPassword ? "Hide password" : "Show password"}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          setShowPassword(prev => !prev);
-        }
-      }}
-    >
-      {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
-    </span>
-  </div>
+          {/* Password */}
+          <div className="mb-4 relative">
+            <label htmlFor="password" className="sr-only">Password</label>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.password}
+              onChange={handlechange}
+              required
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
+              title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
+              aria-invalid={Boolean(error)}
+              autoComplete="new-password" // 👈 tells browser this is new password
+            />
+            <span
+              className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+              onClick={() => setShowPassword(prev => !prev)}
+              tabIndex={0}
+              role="button"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setShowPassword(prev => !prev);
+                }
+              }}
+            >
+              {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+            </span>
+          </div>
 
-  {/* Error Message */}
-  {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
+          {/* Error Message */}
+          {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
 
-  {/* Terms and Conditions */}
-  <p className="text-gray-400 text-xs mb-6 text-center">
-    By signing up or logging in, you agree to Deepseek&apos;s{' '}
-    <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
-    <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
-  </p>
+          {/* Terms and Conditions */}
+          <p className="text-gray-400 text-xs mb-6 text-center">
+            By signing up or logging in, you agree to Deepseek&apos;s{' '}
+            <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
+            <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
+          </p>
 
-  {/* Signup Button */}
-  <button
-    type="submit"
-    disabled={loading}
-    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4"
-  >
-    {loading ? "Signing..." : "Signup"}
-  </button>
+          {/* Signup Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4"
+          >
+            {loading ? "Signing..." : "Signup"}
+          </button>
 
-  {/* Link to login page */}
-  <div className="flex justify-between text-gray-400 text-sm">
-    <span>Already registered?</span>
-    <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
-  </div>
-</form>
+          {/* Link to login page */}
+          <div className="flex justify-between text-gray-400 text-sm">
+            <span>Already registered?</span>
+            <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
+          </div>
+        </form>
 
 
 
