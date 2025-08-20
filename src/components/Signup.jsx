@@ -65,11 +65,14 @@ const Signup = () => {
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
             handleSignup();
+
           }}
+          autoComplete="on"
         >
           {/* First Name */}
           <div className="mb-4">
