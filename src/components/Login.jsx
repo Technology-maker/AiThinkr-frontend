@@ -78,7 +78,7 @@ const Login = () => {
               value={formdata.email}
               onChange={handlechange}
               required
-              autoComplete="email"
+              autoComplete="username"
             />
           </div>
 
