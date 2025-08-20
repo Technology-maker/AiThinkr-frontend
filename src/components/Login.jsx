@@ -39,11 +39,23 @@ const Login = () => {
         },
         { withCredentials: true }
       );
+      
       alert(data.message || "Login successfully")
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
       setAuthUser(data.token)
-      navigate("/");
+      
+      // ✅ Use History API to trigger password manager update/save
+      window.history.pushState({ 
+        loginSuccess: true, 
+        user: data.user,
+        timestamp: Date.now() 
+      }, '', window.location.href);
+      
+      // Small delay to ensure password managers capture any updates
+      setTimeout(() => {
+        navigate("/");
+      }, 300);
     }
     catch (error) {
       const mess = error?.response?.data?.error || "Login Failed";
@@ -61,16 +73,24 @@ const Login = () => {
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Login</h1>
 
-        {/* ✅ Form wrapper added */}
+        {/* ✅ Form wrapper with complete password manager support */}
         <form
+          name="login"
+          method="POST"
+          // ✅ Critical: Set action to your login endpoint
+          action="https://ai-thinkr.vercel.app/api/v1/user/login"
           onSubmit={(e) => {
             e.preventDefault();
             handleLogin();
           }}
+          // ✅ Enable browser password manager functionality
+          autoComplete="on"
         >
           {/* Email */}
           <div className="mb-4">
+            <label htmlFor="email" className="sr-only">Email</label>
             <input
+              id="email"
               type="email"
               name="email"
               placeholder="Email"
@@ -78,13 +98,19 @@ const Login = () => {
               value={formdata.email}
               onChange={handlechange}
               required
+              // ✅ Critical: Tell password managers this is the username field
               autoComplete="username"
+              inputMode="email"
+              autoCapitalize="off"
+              autoCorrect="off"
             />
           </div>
 
           {/* Password */}
           <div className="mb-4 relative">
+            <label htmlFor="password" className="sr-only">Password</label>
             <input
+              id="password"
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
@@ -92,11 +118,21 @@ const Login = () => {
               value={formdata.password}
               onChange={handlechange}
               required
+              // ✅ Critical: Tell password managers this is the current password field
               autoComplete="current-password"
             />
             <span
               className='absolute right-3 top-3 text-gray-400 cursor-pointer'
               onClick={() => setShowPassword((prev) => !prev)}
+              tabIndex={0}
+              role="button"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setShowPassword(prev => !prev);
+                }
+              }}
             >
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </span>
@@ -114,7 +150,7 @@ const Login = () => {
 
           {/* Login Button */}
           <button 
-            type="submit"   // ✅ now submits form
+            type="submit"
             disabled={loading} 
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4"
           >
