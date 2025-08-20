@@ -70,9 +70,8 @@ const Signup = () => {
           onSubmit={(e) => {
             e.preventDefault();
             handleSignup();
-
           }}
-          autoComplete="on"
+          autoComplete="on"   // ✅ enables autofill
         >
           {/* First Name */}
           <div className="mb-4">
@@ -86,7 +85,7 @@ const Signup = () => {
               value={formdata.firstname}
               onChange={handlechange}
               required
-              autoComplete="given-name"   // 👈 tells browser this is first name
+              autoComplete="given-name"   // ✅ first name
             />
           </div>
 
@@ -102,7 +101,7 @@ const Signup = () => {
               value={formdata.lastname}
               onChange={handlechange}
               required
-              autoComplete="family-name"  // 👈 tells browser this is last name
+              autoComplete="family-name"  // ✅ last name
             />
           </div>
 
@@ -121,7 +120,7 @@ const Signup = () => {
               inputMode="email"
               autoCapitalize="off"
               autoCorrect="off"
-              autoComplete="email"        // 👈 tells browser this is email
+              autoComplete="username"   // ✅ use username for Chrome password manager
             />
           </div>
 
@@ -140,7 +139,7 @@ const Signup = () => {
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
               title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
               aria-invalid={Boolean(error)}
-              autoComplete="new-password" // 👈 tells browser this is new password
+              autoComplete="new-password"  // ✅ signup → new password
             />
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
@@ -184,6 +183,7 @@ const Signup = () => {
             <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
           </div>
         </form>
+
 
 
 
