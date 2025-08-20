@@ -61,53 +61,66 @@ const Login = () => {
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Login</h1>
 
-        {/* Email */}
-        <div className="mb-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-            value={formdata.email}
-            onChange={handlechange}
-            required
-            autoComplete="email"
-          />
-        </div>
+        {/* ✅ Form wrapper added */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
+          {/* Email */}
+          <div className="mb-4">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.email}
+              onChange={handlechange}
+              required
+              autoComplete="email"
+            />
+          </div>
 
-        {/* Password */}
-        <div className="mb-4 relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Password"
-            className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
-            value={formdata.password}
-            onChange={handlechange}
-            autoComplete="current-password"
-          />
-          <span
-            className='absolute right-3 top-3 text-gray-400 cursor-pointer'
-            onClick={() => setShowPassword((prev) => !prev)}
+          {/* Password */}
+          <div className="mb-4 relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.password}
+              onChange={handlechange}
+              required
+              autoComplete="current-password"
+            />
+            <span
+              className='absolute right-3 top-3 text-gray-400 cursor-pointer'
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+            </span>
+          </div>
+
+          {/* Error Message */}
+          {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
+
+          {/* Terms and Conditions */}
+          <p className="text-gray-400 text-xs mb-6 text-center">
+            By signing up or logging in, you agree to Deepseek's{' '}
+            <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
+            <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
+          </p>
+
+          {/* Login Button */}
+          <button 
+            type="submit"   // ✅ now submits form
+            disabled={loading} 
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4"
           >
-            {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
-          </span>
-        </div>
-
-        {/* Error Message */}
-        {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
-
-        {/* Terms and Conditions */}
-        <p className="text-gray-400 text-xs mb-6 text-center">
-          By signing up or logging in, you agree to Deepseek's{' '}
-          <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
-          <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
-        </p>
-
-        {/* Login Button */}
-        <button onClick={handleLogin} disabled={loading} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4">
-          {loading ? "Logging in..." : "Login"}
-        </button>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
 
         {/* Link to signup page */}
         <div className="flex justify-between text-gray-400 text-sm">
