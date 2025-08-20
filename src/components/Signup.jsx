@@ -3,7 +3,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-
 const Signup = () => {
   const [loading, setloding] = useState(false);
   const navigate = useNavigate()
@@ -14,7 +13,6 @@ const Signup = () => {
     email: "",
     password: "",
   });
-
 
   const [error, seterror] = useState();
   const [showPassword, setShowPassword] = useState(false);
@@ -28,15 +26,16 @@ const Signup = () => {
     })
   }
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
     setloding(true)
     seterror("");
+
     try {
       const { data } = await axios.post(
         "https://ai-thinkr.vercel.app/api/v1/user/signup",
         {
-          firstname: formdata.firstname,  // ✅ Match backend
-          lastname: formdata.lastname,    // ✅ Match backend
+          firstname: formdata.firstname,
+          lastname: formdata.lastname,
           email: formdata.email,
           password: formdata.password,
         },
@@ -46,8 +45,23 @@ const Signup = () => {
         }
       );
 
-      alert(data.message || "Signup successfully")
-      navigate("/login");
+      // ✅ SUCCESS: Trigger password manager save prompt using History API
+      if (data && data.message) {
+        alert(data.message || "Signup successfully");
+
+        // Use History API to trigger password save prompt
+        // This simulates a successful form submission that browsers recognize
+        window.history.pushState({
+          signupSuccess: true,
+          user: data.user,
+          timestamp: Date.now()
+        }, '', window.location.href);
+
+        // Small delay to ensure password managers capture the credentials
+        setTimeout(() => {
+          navigate("/login");
+        }, 500);
+      }
     }
     catch (error) {
       const mess = error?.response?.data?.error || "Signup Failed";
@@ -59,20 +73,23 @@ const Signup = () => {
     }
   }
 
-  return (<>
-
+  return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
 
+        {/* ✅ Form with proper attributes for password manager */}
         <form
           name="signup"
           method="POST"
+          // ✅ Critical: Set action to your signup endpoint
+          action="https://ai-thinkr.vercel.app/api/v1/user/signup"
           onSubmit={(e) => {
             e.preventDefault();
-            handleSignup();
+            handleSignup(e);
           }}
+          // ✅ Enable browser password manager functionality
           autoComplete="on"
         >
           {/* First Name */}
@@ -87,7 +104,8 @@ const Signup = () => {
               value={formdata.firstname}
               onChange={handlechange}
               required
-              autoComplete="given-name"   // ✅ first name
+              // ✅ Tell password managers this is first name
+              autoComplete="given-name"
             />
           </div>
 
@@ -103,7 +121,8 @@ const Signup = () => {
               value={formdata.lastname}
               onChange={handlechange}
               required
-              autoComplete="family-name"  // ✅ last name
+              // ✅ Tell password managers this is last name
+              autoComplete="family-name"
             />
           </div>
 
@@ -122,7 +141,8 @@ const Signup = () => {
               inputMode="email"
               autoCapitalize="off"
               autoCorrect="off"
-              autoComplete="username"   // ✅ ensures Chrome pairs with password
+              // ✅ Critical: Tell password managers this is the username field
+              autoComplete="username"
             />
           </div>
 
@@ -138,7 +158,8 @@ const Signup = () => {
               value={formdata.password}
               onChange={handlechange}
               required
-              autoComplete="new-password"   // ✅ signup → new password
+              // ✅ Critical: Tell password managers this is a new password
+              autoComplete="new-password"
             />
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
@@ -182,13 +203,8 @@ const Signup = () => {
             <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
           </div>
         </form>
-
-
-
-
       </div>
     </div>
-  </>
   )
 }
 
