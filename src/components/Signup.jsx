@@ -67,11 +67,13 @@ const Signup = () => {
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
 
         <form
+          name="signup"
+          method="POST"
           onSubmit={(e) => {
             e.preventDefault();
             handleSignup();
           }}
-          autoComplete="on"   // ✅ enables autofill
+          autoComplete="on"
         >
           {/* First Name */}
           <div className="mb-4">
@@ -120,7 +122,7 @@ const Signup = () => {
               inputMode="email"
               autoCapitalize="off"
               autoCorrect="off"
-              autoComplete="username"   // ✅ use username for Chrome password manager
+              autoComplete="username"   // ✅ ensures Chrome pairs with password
             />
           </div>
 
@@ -136,10 +138,7 @@ const Signup = () => {
               value={formdata.password}
               onChange={handlechange}
               required
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
-              title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character."
-              aria-invalid={Boolean(error)}
-              autoComplete="new-password"  // ✅ signup → new password
+              autoComplete="new-password"   // ✅ signup → new password
             />
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
