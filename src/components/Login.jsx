@@ -71,6 +71,7 @@ const Login = () => {
             value={formdata.email}
             onChange={handlechange}
             required
+            autoComplete="email"
           />
         </div>
 
@@ -83,6 +84,7 @@ const Login = () => {
             className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
             value={formdata.password}
             onChange={handlechange}
+            autoComplete="current-password"
           />
           <span
             className='absolute right-3 top-3 text-gray-400 cursor-pointer'
