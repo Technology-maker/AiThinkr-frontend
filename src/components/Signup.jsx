@@ -87,7 +87,6 @@ const Signup = () => {
               value={formdata.firstname}
               onChange={handlechange}
               required
-              autoComplete="given-name"   // ✅ first name
             />
           </div>
 
@@ -103,7 +102,6 @@ const Signup = () => {
               value={formdata.lastname}
               onChange={handlechange}
               required
-              autoComplete="family-name"  // ✅ last name
             />
           </div>
 
@@ -111,7 +109,6 @@ const Signup = () => {
           <div className="mb-4">
             <label htmlFor="email" className="sr-only">Email</label>
             <input
-              id="email"
               type="email"
               name="email"
               placeholder="Email"
@@ -119,9 +116,6 @@ const Signup = () => {
               value={formdata.email}
               onChange={handlechange}
               required
-              inputMode="email"
-              autoCapitalize="off"
-              autoCorrect="off"
               autoComplete="username"   // ✅ ensures Chrome pairs with password
             />
           </div>
