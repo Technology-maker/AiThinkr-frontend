@@ -57,7 +57,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative bg-black px-4">
+    <div className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from--bla via-gray-900 to-gray-800 px-4">
       
       {/* 🌟 Particles Background */}
       <div className="absolute inset-0 -z-10">
