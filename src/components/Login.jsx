@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useAuth } from '../context/AuthProvider.jsx';
-import Particles from './Particles';
+import Particles from './snipet/Particles.jsx';
 
 const Login = () => {
   const [loading, setloding] = useState(false);
