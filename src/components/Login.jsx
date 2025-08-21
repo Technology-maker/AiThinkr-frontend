@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useAuth } from '../context/AuthProvider.jsx';
+import Particles from './snipet/Particles.jsx';
 
 const Login = () => {
   const [loading, setloding] = useState(false);
@@ -57,6 +58,18 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
+      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+        <Particles
+          particleColors={['#ffffff', '#ffffff']}
+          particleCount={200}
+          particleSpread={10}
+          speed={0.1}
+          particleBaseSize={100}
+          moveParticlesOnHover={true}
+          alphaParticles={false}
+          disableRotation={false}
+        />
+      </div>
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Login</h1>
