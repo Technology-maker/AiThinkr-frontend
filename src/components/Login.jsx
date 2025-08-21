@@ -3,11 +3,12 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useAuth } from '../context/AuthProvider.jsx';
-import Hyperspeed from './snipet/Hyperspeed.jsx';
+import LightRays from './snipet/LightRays.jsx';
 
 const Login = () => {
   const [loading, setloding] = useState(false);
   const navigate = useNavigate()
+
   const [, setAuthUser] = useAuth()
 
   const [formdata, setformdate] = useState({
@@ -19,7 +20,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handlechange = (e) => {
-    const { name, value } = e.target;
+    const value = e.target.value
+    const name = e.target.name
     setformdate({
       ...formdata,
       [name]: value,
@@ -55,56 +57,28 @@ const Login = () => {
   }
 
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      {/* 🔥 Hyperspeed Background */}
-      <div className="absolute inset-0 z-0">
-        <Hyperspeed
-          effectOptions={{
-            onSpeedUp: () => { },
-            onSlowDown: () => { },
-            distortion: 'turbulentDistortion',
-            length: 400,
-            roadWidth: 10,
-            islandWidth: 2,
-            lanesPerRoad: 4,
-            fov: 90,
-            fovSpeedUp: 150,
-            speedUp: 2,
-            carLightsFade: 0.4,
-            totalSideLightSticks: 20,
-            lightPairsPerRoadWay: 40,
-            shoulderLinesWidthPercentage: 0.05,
-            brokenLinesWidthPercentage: 0.1,
-            brokenLinesLengthPercentage: 0.5,
-            lightStickWidth: [0.12, 0.5],
-            lightStickHeight: [1.3, 1.7],
-            movingAwaySpeed: [60, 80],
-            movingCloserSpeed: [-120, -160],
-            carLightsLength: [400 * 0.03, 400 * 0.2],
-            carLightsRadius: [0.05, 0.14],
-            carWidthPercentage: [0.3, 0.5],
-            carShiftX: [-0.8, 0.8],
-            carFloorSeparation: [0, 5],
-            colors: {
-              roadColor: 0x080808,
-              islandColor: 0x0a0a0a,
-              background: 0x000000,
-              shoulderLines: 0xFFFFFF,
-              brokenLines: 0xFFFFFF,
-              leftCars: [0xD856BF, 0x6750A2, 0xC247AC],
-              rightCars: [0x03B3C3, 0x0E5EA5, 0x324555],
-              sticks: 0x03B3C3,
-            }
-          }}
-        />
-      </div>
+    <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
+      {/* 🔥 Light Rays Background */}
+      <LightRays
+        raysOrigin="top-center"
+        raysColor="#00ffff"
+        raysSpeed={1.5}
+        lightSpread={0.8}
+        rayLength={1.2}
+        followMouse={true}
+        mouseInfluence={0.1}
+        noiseAmount={0.1}
+        distortion={0.05}
+        className="custom-rays"
+      />
 
-      {/* 🔥 Login Box */}
-      <div className="relative z-10 flex items-center justify-center h-full px-4">
-        <div className="w-full max-w-md bg-black/70 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-gray-700">
+      {/* Login Box */}
+      <div className="absolute inset-0 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
           {/* Heading */}
           <h1 className="text-3xl font-bold text-center mb-6 text-white">Login</h1>
 
+          {/* ✅ Form wrapper */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -117,7 +91,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                className="w-full px-4 py-3 rounded-lg bg-gray-900/80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
                 value={formdata.email}
                 onChange={handlechange}
                 required
@@ -131,7 +105,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Password"
-                className="w-full px-4 py-3 rounded-lg bg-gray-900/80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
                 value={formdata.password}
                 onChange={handlechange}
                 required
@@ -155,7 +129,7 @@ const Login = () => {
               <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
             </p>
 
-            {/* Login Button */}
+            {/* Button */}
             <button
               type="submit"
               disabled={loading}
@@ -165,7 +139,7 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Signup link */}
+          {/* Signup Link */}
           <div className="flex justify-between text-gray-400 text-sm">
             <span>Don't have an account?</span>
             <Link to="/signup" className="text-blue-400 hover:underline">Signup</Link>
