@@ -52,20 +52,20 @@ const Login = () => {
   }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4">
+    <div className="relative min-h-screen flex items-center justify-center bg-black px-4">
       {/* 🔥 Particles Background */}
       <div className="absolute inset-0 -z-10">
-        <Particles
-          particleColors={['#ffffff', '#ffffff']}
-          particleCount={200}
-          particleSpread={10}
-          speed={0.1}
-          particleBaseSize={100}
-          moveParticlesOnHover={true}
-          alphaParticles={false}
-          disableRotation={false}
-        />
-      </div>
+    <Particles
+      particleColors={['#ffffff']}   // white particles
+      particleCount={200}
+      particleSpread={10}
+      speed={0.1}
+      particleBaseSize={100}
+      moveParticlesOnHover={true}
+      alphaParticles={false}
+      disableRotation={false}
+    />
+  </div>
 
       {/* Login Card */}
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
