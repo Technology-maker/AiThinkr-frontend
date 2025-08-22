@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
+import Ballpit from './snipet/Ballpit'
 import axios from 'axios'
 
 
@@ -62,6 +63,23 @@ const Signup = () => {
   return (<>
 
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
+
+      {/* //Component inspired by Kevin Levron:
+      //https://x.com/soju22/status/1858925191671271801 */}
+
+
+
+      <div style={{ position: 'relative', overflow: 'hidden', minHeight: '500px', maxHeight: '500px', width: '100%' }}>
+        <Ballpit
+          count={200}
+          gravity={0.7}
+          friction={0.8}
+          wallBounce={0.95}
+          followCursor={true}
+        />
+      </div>
+
+
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
