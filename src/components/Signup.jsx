@@ -61,6 +61,15 @@ const Signup = () => {
   }
 
   return (<>
+    <div style={{ position: 'relative', overflow: 'hidden', minHeight: '500px', maxHeight: '500px', width: '100%' }}>
+      <Ballpit
+        count={200}
+        gravity={0.7}
+        friction={0.8}
+        wallBounce={0.95}
+        followCursor={true}
+      />
+    </div>
 
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
 
@@ -69,15 +78,7 @@ const Signup = () => {
 
 
 
-      <div style={{ position: 'relative', overflow: 'hidden', minHeight: '500px', maxHeight: '500px', width: '100%' }}>
-        <Ballpit
-          count={200}
-          gravity={0.7}
-          friction={0.8}
-          wallBounce={0.95}
-          followCursor={true}
-        />
-      </div>
+
 
 
       <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
