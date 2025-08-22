@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Ballpit from './Ballpit'
+import Ballpit from './snipet/Ballpit'
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
