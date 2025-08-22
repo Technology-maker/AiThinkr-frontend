@@ -69,7 +69,7 @@ const Login = () => {
       </div>
 
       {/* ✅ Login Card */}
-      <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800 relative z-10">
+      <div className="w-full max-w-md bg-transparent backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-gray-800 relative z-10">
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Login</h1>
 
         <form
