@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-
+import DotGrid from './snipet/DotGrid';   // ✅ Background Component
 
 const Signup = () => {
   const [loading, setloding] = useState(false);
@@ -14,7 +14,6 @@ const Signup = () => {
     email: "",
     password: "",
   });
-
 
   const [error, seterror] = useState();
   const [showPassword, setShowPassword] = useState(false);
@@ -35,8 +34,8 @@ const Signup = () => {
       const { data } = await axios.post(
         "https://ai-thinkr.vercel.app/api/v1/user/signup",
         {
-          firstname: formdata.firstname,  // ✅ Match backend
-          lastname: formdata.lastname,    // ✅ Match backend
+          firstname: formdata.firstname,
+          lastname: formdata.lastname,
           email: formdata.email,
           password: formdata.password,
         },
@@ -59,11 +58,26 @@ const Signup = () => {
     }
   }
 
-  return (<>
+  return (
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
+      
+      {/* ✅ Background DotGrid */}
+      <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0, zIndex: 0 }}>
+        <DotGrid
+          dotSize={10}
+          gap={15}
+          baseColor="#5227FF"
+          activeColor="#5227FF"
+          proximity={120}
+          shockRadius={250}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={1.5}
+        />
+      </div>
 
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
-      <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
-        {/* Heading */}
+      {/* ✅ Signup Card */}
+      <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800 relative z-10">
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
 
         <form
@@ -77,7 +91,6 @@ const Signup = () => {
         >
           {/* First Name */}
           <div className="mb-4">
-            <label htmlFor="firstname" className="sr-only">First Name</label>
             <input
               id="firstname"
               type="text"
@@ -92,7 +105,6 @@ const Signup = () => {
 
           {/* Last Name */}
           <div className="mb-4">
-            <label htmlFor="lastname" className="sr-only">Last Name</label>
             <input
               id="lastname"
               type="text"
@@ -107,7 +119,6 @@ const Signup = () => {
 
           {/* Email */}
           <div className="mb-4">
-            <label htmlFor="email" className="sr-only">Email</label>
             <input
               type="email"
               name="email"
@@ -116,13 +127,12 @@ const Signup = () => {
               value={formdata.email}
               onChange={handlechange}
               required
-              autoComplete="username"   // ✅ ensures Chrome pairs with password
+              autoComplete="username"
             />
           </div>
 
           {/* Password */}
           <div className="mb-4 relative">
-            <label htmlFor="password" className="sr-only">Password</label>
             <input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -132,7 +142,7 @@ const Signup = () => {
               value={formdata.password}
               onChange={handlechange}
               required
-              autoComplete="new-password"   // ✅ signup → new password
+              autoComplete="new-password"
             />
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
@@ -154,14 +164,12 @@ const Signup = () => {
           {/* Error Message */}
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
 
-          {/* Terms and Conditions */}
           <p className="text-gray-400 text-xs mb-6 text-center">
             By signing up or logging in, you agree to Deepseek&apos;s{' '}
             <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
             <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
           </p>
 
-          {/* Signup Button */}
           <button
             type="submit"
             disabled={loading}
@@ -170,19 +178,13 @@ const Signup = () => {
             {loading ? "Signing..." : "Signup"}
           </button>
 
-          {/* Link to login page */}
           <div className="flex justify-between text-gray-400 text-sm">
             <span>Already registered?</span>
             <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
           </div>
         </form>
-
-
-
-
       </div>
     </div>
-  </>
   )
 }
 
