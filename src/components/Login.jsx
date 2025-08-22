@@ -53,7 +53,7 @@ const Login = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-      
+
       {/* ✅ Particles Background */}
       <div className="absolute inset-0 -z-10">
         <Particles
@@ -115,7 +115,7 @@ const Login = () => {
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
 
           <p className="text-gray-400 text-xs mb-6 text-center">
-            By signing up or logging in, you agree to Deepseek's{" "}
+            By signing up or logging in, you agree to Aithinkr's{" "}
             <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{" "}
             <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
           </p>
