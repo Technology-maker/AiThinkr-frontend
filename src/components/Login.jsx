@@ -3,11 +3,11 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useAuth } from '../context/AuthProvider.jsx';
+import Particles from './Particles';   // ✅ Import background particles
 
 const Login = () => {
   const [loading, setloding] = useState(false);
   const navigate = useNavigate()
-
   const [, setAuthUser] = useAuth()
 
   const [formdata, setformdate] = useState({
@@ -19,12 +19,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handlechange = (e) => {
-    const value = e.target.value
-    const name = e.target.name
-    setformdate({
-      ...formdata,
-      [name]: value,
-    })
+    const { name, value } = e.target;
+    setformdate((prev) => ({ ...prev, [name]: value }));
   }
 
   const handleLogin = async () => {
@@ -56,12 +52,26 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
-      <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
-        {/* Heading */}
+    <div className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+      
+      {/* ✅ Particles Background */}
+      <div className="absolute inset-0 -z-10">
+        <Particles
+          particleColors={['#ffffff', '#ffffff']}
+          particleCount={200}
+          particleSpread={10}
+          speed={0.1}
+          particleBaseSize={100}
+          moveParticlesOnHover={true}
+          alphaParticles={false}
+          disableRotation={false}
+        />
+      </div>
+
+      {/* ✅ Login Card */}
+      <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800 relative z-10">
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Login</h1>
 
-        {/* ✅ Form wrapper added */}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -95,26 +105,23 @@ const Login = () => {
               autoComplete="current-password"
             />
             <span
-              className='absolute right-3 top-3 text-gray-400 cursor-pointer'
+              className="absolute right-3 top-3 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
             </span>
           </div>
 
-          {/* Error Message */}
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
 
-          {/* Terms and Conditions */}
           <p className="text-gray-400 text-xs mb-6 text-center">
-            By signing up or logging in, you agree to Deepseek's{' '}
-            <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
+            By signing up or logging in, you agree to Deepseek's{" "}
+            <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{" "}
             <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
           </p>
 
-          {/* Login Button */}
           <button
-            type="submit"   // ✅ now submits form
+            type="submit"
             disabled={loading}
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4"
           >
@@ -122,7 +129,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Link to signup page */}
         <div className="flex justify-between text-gray-400 text-sm">
           <span>Don't have an account?</span>
           <Link to="/signup" className="text-blue-400 hover:underline">Signup</Link>
