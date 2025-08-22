@@ -2,36 +2,41 @@ import React, { useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import Ballpit from './snipet/Ballpit'
+
 
 const Signup = () => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [loading, setloding] = useState(false);
+  const navigate = useNavigate()
 
-  const [formdata, setFormdata] = useState({
+  const [formdata, setformdate] = useState({
     firstname: "",
     lastname: "",
     email: "",
     password: "",
   });
 
-  const [error, setError] = useState();
+
+  const [error, seterror] = useState();
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormdata(prev => ({ ...prev, [name]: value }));
+  const handlechange = (e) => {
+    const value = e.target.value
+    const name = e.target.name
+    setformdate({
+      ...formdata,
+      [name]: value,
+    })
   }
 
   const handleSignup = async () => {
-    setLoading(true);
-    setError("");
+    setloding(true)
+    seterror("");
     try {
       const { data } = await axios.post(
         "https://ai-thinkr.vercel.app/api/v1/user/signup",
         {
-          firstname: formdata.firstname,
-          lastname: formdata.lastname,
+          firstname: formdata.firstname,  // ✅ Match backend
+          lastname: formdata.lastname,    // ✅ Match backend
           email: formdata.email,
           password: formdata.password,
         },
@@ -41,104 +46,101 @@ const Signup = () => {
         }
       );
 
-      alert(data.message || "Signup successful");
+      alert(data.message || "Signup successfully")
       navigate("/login");
-    } catch (err) {
-      setError(err?.response?.data?.error || "Signup Failed");
-      console.error(err);
-    } finally {
-      setLoading(false);
+    }
+    catch (error) {
+      const mess = error?.response?.data?.error || "Signup Failed";
+      seterror(mess);
+      console.log(error);
+    }
+    finally {
+      setloding(false);
     }
   }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
-      {/* Ballpit Animation */}
-      <div style={{ position: 'relative', overflow: 'hidden', minHeight: '500px', maxHeight: '500px', width: '100%' }} className="absolute top-0 left-0 right-0">
-        <Ballpit
-          count={200}
-          gravity={0.7}
-          friction={0.8}
-          wallBounce={0.95}
-          followCursor={true}
-        />
-        <div className="absolute inset-0 bg-black/30" />
-      </div>
+  return (<>
 
-      {/* Form Container */}
-      <div className="relative w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800 z-10">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-700 via-gray-900 to-gray-800 px-4">
+      <div className="w-full max-w-md bg-[#18181b] rounded-2xl shadow-2xl p-8 border border-gray-800">
+        {/* Heading */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">Sign Up</h1>
 
         <form
-          onSubmit={e => {
+          name="signup"
+          method="POST"
+          onSubmit={(e) => {
             e.preventDefault();
             handleSignup();
           }}
           autoComplete="on"
         >
+          {/* First Name */}
           <div className="mb-4">
             <label htmlFor="firstname" className="sr-only">First Name</label>
             <input
               id="firstname"
-              name="firstname"
               type="text"
+              name="firstname"
               placeholder="First Name"
-              value={formdata.firstname}
-              onChange={handleChange}
-              required
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.firstname}
+              onChange={handlechange}
+              required
             />
           </div>
 
+          {/* Last Name */}
           <div className="mb-4">
             <label htmlFor="lastname" className="sr-only">Last Name</label>
             <input
               id="lastname"
-              name="lastname"
               type="text"
+              name="lastname"
               placeholder="Last Name"
-              value={formdata.lastname}
-              onChange={handleChange}
-              required
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.lastname}
+              onChange={handlechange}
+              required
             />
           </div>
 
+          {/* Email */}
           <div className="mb-4">
             <label htmlFor="email" className="sr-only">Email</label>
             <input
-              id="email"
-              name="email"
               type="email"
+              name="email"
               placeholder="Email"
-              value={formdata.email}
-              onChange={handleChange}
-              required
-              autoComplete="username"
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.email}
+              onChange={handlechange}
+              required
+              autoComplete="username"   // ✅ ensures Chrome pairs with password
             />
           </div>
 
+          {/* Password */}
           <div className="mb-4 relative">
             <label htmlFor="password" className="sr-only">Password</label>
             <input
               id="password"
-              name="password"
               type={showPassword ? "text" : "password"}
+              name="password"
               placeholder="Password"
-              value={formdata.password}
-              onChange={handleChange}
-              required
-              autoComplete="new-password"
               className="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+              value={formdata.password}
+              onChange={handlechange}
+              required
+              autoComplete="new-password"   // ✅ signup → new password
             />
             <span
               className="absolute right-3 top-3 text-gray-400 cursor-pointer"
               onClick={() => setShowPassword(prev => !prev)}
-              role="button"
               tabIndex={0}
+              role="button"
               aria-label={showPassword ? "Hide password" : "Show password"}
-              onKeyDown={e => {
+              onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   setShowPassword(prev => !prev);
@@ -149,29 +151,38 @@ const Signup = () => {
             </span>
           </div>
 
+          {/* Error Message */}
           {error && <span className="block text-red-500 text-sm mb-4">{error}</span>}
 
+          {/* Terms and Conditions */}
           <p className="text-gray-400 text-xs mb-6 text-center">
             By signing up or logging in, you agree to Deepseek&apos;s{' '}
             <a href="#" className="underline hover:text-blue-400">Terms of Use</a> and{' '}
             <a href="#" className="underline hover:text-blue-400">Privacy Policy</a>.
           </p>
 
+          {/* Signup Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4 disabled:opacity-50"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition mb-4"
           >
             {loading ? "Signing..." : "Signup"}
           </button>
 
+          {/* Link to login page */}
           <div className="flex justify-between text-gray-400 text-sm">
             <span>Already registered?</span>
             <Link to="/login" className="text-blue-400 hover:underline">Login</Link>
           </div>
         </form>
+
+
+
+
       </div>
     </div>
+  </>
   )
 }
 
